@@ -18,6 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/home';
+    protected $namesapce = 'App\\Http\\Controllers'; //加這一行(與route相關)
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -34,6 +35,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
+                ->namespace($this->namesapce)  //加這一行(與route相關)
                 ->group(base_path('routes/web.php'));
         });
     }
