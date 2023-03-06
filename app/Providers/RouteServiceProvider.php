@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/';
     protected $namesapce = 'App\\Http\\Controllers'; //加這一行(與route相關)
 
     /**
