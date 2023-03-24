@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -21,10 +22,21 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
-    /**
+    /** 重置成功後的跳轉
      * Where to redirect users after resetting their password.
      *
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
+    protected function sendResetResponse(Request $request, $response)
+    {
+        session()->flash('success', '密碼更新成功，您已成功登入！');
+        return redirect($this->redirectPath());
+    }
 }
