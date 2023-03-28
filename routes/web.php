@@ -50,5 +50,14 @@ Route::get('email/verify', 'Auth\VerificationController@show')->name('verificati
 Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
+/*個人頁面
+  GET|HEAD     users/{user} .......... users.show › UsersController@show
+  PUT|PATCH    users/{user} .......... users.update › UsersController@update
+  GET|HEAD     users/{user}/edit ..... users.edit › UsersController@edit
 
+  Route::get('/users/{user}', 'UsersController@show')->name('users.show');
+  Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit');
+  Route::patch('/users/{user}', 'UsersController@update')->name('users.update');
+*/
+Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit']]);
 
