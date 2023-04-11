@@ -71,3 +71,8 @@ Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit'
   GET|HEAD        topics/{topic}/edit ......... topics.edit › TopicsController@edit
 */
 Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+
+/*根據"分類"列出"話題"
+GET|HEAD        categories/{category} ......... categories.show › CategoriesController@show
+*/
+Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
