@@ -41,13 +41,13 @@ class ImageUploadHandler
             $this->reduceSize($upload_path . '/' . $filename, $max_width);
         }
 
-        // return [
-        //     'path' => config('app.url') . "/$folder_name/$filename"
-        // ];
-
         return [
-            'path' => "/$folder_name/$filename"
+            'path' => config('app.url') . "/$folder_name/$filename"
         ];
+
+        // return [
+        //     'path' => "/$folder_name/$filename"
+        // ];
     }
 
     public function reduceSize($file_path, $max_width)

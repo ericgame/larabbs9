@@ -76,3 +76,7 @@ Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'crea
 GET|HEAD        categories/{category} ......... categories.show › CategoriesController@show
 */
 Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
+
+//Simditor編輯器:圖片上傳
+Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload_image');
+

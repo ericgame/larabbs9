@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TopicRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Handlers\ImageUploadHandler;
 
 class TopicsController extends Controller
 {
@@ -65,5 +66,30 @@ class TopicsController extends Controller
 		$topic->delete();
 
 		return redirect()->route('topics.index')->with('message', 'Deleted successfully.');
+	}
+
+	public function uploadImage(Request $request, ImageUploadHandler $uploader)
+	{
+		// 初始化返回數據 (預設值為失敗 false)
+		$data = [
+			'success' => false,
+			'msg' => '上傳失敗!',
+			'file_path' => ''
+		];
+
+		// 判斷是否有上傳文件，並賦值給 $file
+		if ($file = $request->upload_file) {
+			// 保存圖片到本地
+			$result = $uploader->save($file, 'topics', Auth::id(), 1024);
+
+			// 圖片保存成功
+			if ($result) {
+				$data['file_path'] = $result['path'];
+				$data['msg'] = '上傳成功!';
+				$data['success'] = true;
+			}
+		}
+
+		return $data;
 	}
 }

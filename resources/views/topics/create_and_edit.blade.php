@@ -43,8 +43,7 @@
           </div>
 
           <div class="mb-3">
-            <textarea name="body" class="form-control" id="editor" rows="6" placeholder="請填寫最少三個字符的內容。"
-              required>{{ old('body', $topic->body) }}</textarea>
+            <textarea name="body" class="form-control" id="editor" rows="6" placeholder="請填寫最少三個字符的內容。" required>{{ old('body', $topic->body) }}</textarea>
           </div>
 
           <div class="well well-sm">
@@ -71,6 +70,16 @@
     $(document).ready(function() {
       var editor = new Simditor({
         textarea: $('#editor'),
+        upload: {
+          url: "{{ route('topics.upload_image') }}",
+          params: {
+            _token: '{{ csrf_token() }}'
+          },
+          fileKey: 'upload_file',
+          connectionCount: 3,
+          leaveConfirm: '文件上傳中，關閉此頁面將取消上傳。'
+        },
+        pasteImage: true,
       });
     });
   </script>
