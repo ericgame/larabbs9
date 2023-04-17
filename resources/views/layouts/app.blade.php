@@ -8,6 +8,8 @@
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  
+  <meta name="description" content="@yield('description', 'LaraBBS 9 愛好者社區')">
 
   <title>@yield('title', 'LaraBBS 9') - LaraBBS 9</title>
 
