@@ -65,12 +65,13 @@ Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit'
   GET|HEAD        topics ...................... topics.index › TopicsController@index
   POST            topics ...................... topics.store › TopicsController@store
   GET|HEAD        topics/create ............... topics.create › TopicsController@create
-  GET|HEAD        topics/{topic} .............. topics.show › TopicsController@show
   PUT|PATCH       topics/{topic} .............. topics.update › TopicsController@update
   DELETE          topics/{topic} .............. topics.destroy › TopicsController@destroy
   GET|HEAD        topics/{topic}/edit ......... topics.edit › TopicsController@edit
 */
-Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('topics', 'TopicsController', ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
+
+Route::get('topics/{topic}/{slug?}', 'TopicsController@show')->name('topics.show');
 
 /*根據"分類"列出"話題"
 GET|HEAD        categories/{category} ......... categories.show › CategoriesController@show

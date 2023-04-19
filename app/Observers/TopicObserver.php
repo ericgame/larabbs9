@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Topic;
+use App\Handlers\SlugTranslateHandler;
 
 // creating, created, updating, updated, saving,
 // saved,  deleting, deleted, restoring, restored
@@ -16,5 +17,10 @@ class TopicObserver
 
         // 產生"文章摘要"，用於SEO
         $topic->excerpt = make_excerpt($topic->body);
+
+        // 如 slug 字段無內容，即使用翻譯器對 title 進行翻譯
+        if (! $topic->slug) {
+            $topic->slug = app(SlugTranslateHandler::class)->translate($topic->title);
+        }
     }
 }

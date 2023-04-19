@@ -45,4 +45,9 @@ class Topic extends Model
         // 按照創建時間排序
         return $query->orderBy('created_at', 'desc');
     }
+
+    public function link($params = [])
+    {
+        return route('topics.show', array_merge([$this->id, $this->slug], $params));
+    }
 }
