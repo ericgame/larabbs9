@@ -81,5 +81,6 @@ Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
 //Simditor編輯器:圖片上傳
 Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload_image');
 
+//回覆
+Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]);
 
-Route::resource('replies', 'RepliesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
