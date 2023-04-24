@@ -79,4 +79,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Reply::class);
     }
+
+    public function markAsRead()
+    {
+        //將 users的欄位 notification_count 歸零(表示已讀)
+        $this->notification_count = 0;
+        $this->save();
+
+        //將 notifications的欄位 read_at 寫入已讀日期
+        $this->unreadNotifications->markAsRead();
+    }
 }
