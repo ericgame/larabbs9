@@ -24,5 +24,12 @@ class UsersTableSeeder extends Seeder
         $user->email = 'ericarc99@gmail.com';
         $user->avatar = 'https://cdn.learnku.com/uploads/images/201710/14/1/ZqM7iaP4CR.png';
         $user->save();
+
+        // 初始化用戶角色，將 1 號用戶指派為『站長』
+        $user->assignRole('Founder');
+
+        // 將 2 號用戶指派為『管理員』
+        $user = User::find(2);
+        $user->assignRole('Maintainer');
     }
 }
