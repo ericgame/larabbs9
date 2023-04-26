@@ -16,6 +16,7 @@
   <!-- Styles -->
   <!-- <link href="{{ mix('css/app.css') }}" rel="stylesheet"> -->
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  <link rel="stylesheet" href="{{ asset('sudo-su/css/app.css') }}">
   @yield('styles')
 </head>
 
@@ -34,6 +35,10 @@
 
     @include('layouts._footer')
   </div>
+
+  @if(app()->isLocal())
+    @include('sudosu::user-selector')
+  @endif
 
   <!-- Scripts -->
   <!-- <script src="{{ mix('js/app.js') }}"></script> -->
