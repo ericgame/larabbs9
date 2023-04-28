@@ -156,7 +156,7 @@ return array(
      * @type string
      */
     // 用來作為後台主頁的菜單條目，由 `use_dashboard` 選項決定，菜單指的是 `menu` 選項
-    'home_page' => 'users',
+    'home_page' => 'topics',
 
     /*
      * The route to which the user will be taken when they click the "back to site" button
@@ -172,7 +172,7 @@ return array(
      * @type string
      */
     // 當選項 `permission` 權限檢測不通過時，會重定向用戶到此處設置的路徑
-    'login_path' => 'login',
+    'login_path' => 'permission-denied',
 
     /*
      * The logout path is the path where Administrator will send the user when they click the logout link
