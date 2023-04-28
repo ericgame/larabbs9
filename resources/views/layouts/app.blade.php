@@ -9,9 +9,10 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
   
-  <meta name="description" content="@yield('description', 'LaraBBS 9 愛好者社區')">
+  <meta name="description" content="@yield('description', setting('seo_description', 'LaraBBS9 愛好者社區'))">
+  <meta name="keywords" content="@yield('keyword', setting('seo_keyword', 'LaraBBS9、論壇、社區、開發者社區'))">
 
-  <title>@yield('title', 'LaraBBS 9') - LaraBBS 9</title>
+  <title>@yield('title', 'LaraBBS 9') - {{ setting('site_name', 'Laravel') }}</title>
 
   <!-- Styles -->
   <!-- <link href="{{ mix('css/app.css') }}" rel="stylesheet"> -->
