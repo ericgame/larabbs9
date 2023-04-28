@@ -94,6 +94,11 @@ return array(
             'roles',
             'permissions',
         ],
+        '內容管理' => [
+            'categories',
+            'topics',
+            'replies',
+        ],
     ],
 
 
