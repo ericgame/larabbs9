@@ -21,8 +21,21 @@ class TopicObserver
         $topic->excerpt = make_excerpt($topic->body);
 
         // 如 slug 字段無內容，即使用翻譯器對 title 進行翻譯 (不用隊列)
+        // if (! $topic->slug) {
+            //不用隊列
+            // $topic->slug = app(SlugTranslateHandler::class)->translate($topic->title);
+
+            // 推送任務到隊列
+            // dispatch(new TranslateSlug($topic));
+        // }
+    }
+
+    public function saved(Topic $topic)
+    {
+        // 如 slug 字段無內容，即使用翻譯器對 title 進行翻譯 (用隊列)
         if (! $topic->slug) {
-            $topic->slug = app(SlugTranslateHandler::class)->translate($topic->title);
+            // 推送任務到隊列
+            dispatch(new TranslateSlug($topic));
         }
     }
 
@@ -30,13 +43,4 @@ class TopicObserver
     {
         DB::table('replies')->where('topic_id', $topic->id)->delete();
     }
-
-    // public function saved(Topic $topic)
-    // {
-    //     // 如 slug 字段無內容，即使用翻譯器對 title 進行翻譯 (用隊列)
-    //     if (! $topic->slug) {
-    //         // 推送任務到隊列
-    //         dispatch(new TranslateSlug($topic));
-    //     }
-    // }
 }

@@ -10,6 +10,7 @@ use App\Http\Requests\TopicRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Handlers\ImageUploadHandler;
 use App\Models\User;
+use App\Models\Link;
 
 class TopicsController extends Controller
 {
@@ -18,7 +19,7 @@ class TopicsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-	public function index(Request $request, Topic $topic, User $user)
+	public function index(Request $request, Topic $topic, User $user, Link $link)
 	{
 		$topics = $topic->withOrder($request->order)
 						->with('user', 'category')  // 預加載防止 N+1 問題
@@ -27,7 +28,9 @@ class TopicsController extends Controller
 		$active_users = $user->getActiveUsers();
 		// dd($active_users);
 
-		return view('topics.index', compact('topics', 'active_users'));
+		$links = $link->getAllCached();
+
+		return view('topics.index', compact('topics', 'active_users', 'links'));
 	}
 
     public function show(Request $request, Topic $topic)

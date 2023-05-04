@@ -101,6 +101,7 @@ return array(
         ],
         '站點管理' => [
             'settings.site',
+            'links',
         ],
     ],
 
