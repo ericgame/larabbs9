@@ -16,7 +16,7 @@ return [
      */
 
     // 允許使用的頂級域名 (網址若使用 localhost 要加入 localhost)
-    'allowed_tlds' => ['dev', 'local', 'localhost'],
+    'allowed_tlds' => ['dev', 'local', 'localhost', 'test'],
 
     /*
     |--------------------------------------------------------------------------
