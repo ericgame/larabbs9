@@ -48,6 +48,7 @@ class Kernel extends HttpKernel
         // 在 RouteServiceProvider 中設定
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            \App\Http\Middleware\AcceptHeader::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class, // 使用別名來調用中間件 // 請見：https://learnku.com/docs/laravel/9.x/middleware#為路由分配中間件
         ],
