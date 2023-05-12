@@ -11,6 +11,7 @@ use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
+use DateTimeInterface;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -45,6 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'name',
+        'phone',
         'email',
         'password',
         'introduction',
@@ -70,6 +72,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
+    
     public function topics()
     {
         return $this->hasMany(Topic::class);
