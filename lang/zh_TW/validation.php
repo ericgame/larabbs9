@@ -128,6 +128,7 @@ return [
     'uploaded'             => ':attribute 上傳失敗。',
     'url'                  => ':attribute 的格式錯誤。',
     'uuid'                 => ':attribute 必須是有效的 UUID。',
+    'phone'                => ':attribute 格式不正確。',
     'custom'               => [
         'attribute-name' => [
             'rule-name' => 'custom-message',

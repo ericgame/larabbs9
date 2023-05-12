@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\VerificationCodesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::prefix('v1')->name('api.v1.')->group(function() {
-
+    // 短信驗證碼
+    Route::post('verificationCodes', [verificationCodesController::class, 'store'])->name('verificationCodes.store');
 });
 
