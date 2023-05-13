@@ -20,11 +20,18 @@ use App\Http\Controllers\Api\UsersController;
 //     return $request->user();
 // });
 
+// Route::prefix('v1')->name('api.v1.')->group(function() {
 Route::prefix('v1')->name('api.v1.')->group(function() {
-    // 短信驗證碼
-    Route::post('verificationCodes', [verificationCodesController::class, 'store'])->name('verificationCodes.store');
+    Route::middleware('throttle' . config('api.rate_limits.sign'))->group(function() {
+        // 短信驗證碼
+        Route::post('verificationCodes', [verificationCodesController::class, 'store'])->name('verificationCodes.store');
 
-    // 用戶註冊
-    Route::post('users', [UsersController::class, 'store'])->name('users.store');
+        // 用戶註冊
+        Route::post('users', [UsersController::class, 'store'])->name('users.store');
+    });
+
+    Route::middleware('throttle' . config('api.rate_limits.access'))->group(function() {
+        //
+    });
 });
 
