@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\VerificationCodesController;
 use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\CaptchasController;
+use App\Http\Controllers\Api\AuthorizationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,9 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
 
         // 用戶註冊
         Route::post('users', [UsersController::class, 'store'])->name('users.store');
+
+        // 第三方登錄
+        Route::post('socials/{social_type}/authorizations', [AuthorizationsController::class, 'socialStore'])->where('social_type', 'wechat')->name('socials.authorizations.store');
     });
 
     Route::middleware('throttle:' . config('api.rate_limits.access'))->group(function() {
