@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\VerificationCodesController;
 use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\CaptchasController;
 use App\Http\Controllers\Api\AuthorizationsController;
+use App\Http\Controllers\Api\ImagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,12 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
         Route::middleware('auth:api')->group(function() {
             // 當前登錄用戶信息
             Route::get('user', [UsersController::class, 'me'])->name('user.show');
+
+            // 編輯登錄用戶信息
+            Route::patch('user', [UsersController::class, 'update'])->name('user.update');
+            
+            // 上傳圖片
+            Route::post('images', [ImagesController::class, 'store'])->name('images.store');
         });
     });
 });
