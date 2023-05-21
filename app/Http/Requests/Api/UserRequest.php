@@ -26,7 +26,7 @@ class UserRequest extends FormRequest
                     'name' => 'between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name,'.$userId,
                     'email' => 'email|unique:users,email,'.$userId, // email在users資料表的email欄位必須是唯一的，除了$userId(與users資料表的id欄位值相同的值)之外
                     'introduction' => 'max:80',
-                    'avatar_image_id' => 'exists:images,id,type,avatar,user_id,'.$userId, // 資料表 images | 欄位 id,type,user_id | type 值為 avatar | user_id 值為 $userId
+                    'avatar_image_id' => 'exists:images,id,type,avatar,user_id,'.$userId, // avatar_image_id要存在於images資料表的id欄位，並且type欄位值為avatar，並且user_id欄位值為$userId
                 ];
                 break;
         }

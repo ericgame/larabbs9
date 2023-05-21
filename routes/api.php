@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\CaptchasController;
 use App\Http\Controllers\Api\AuthorizationsController;
 use App\Http\Controllers\Api\ImagesController;
+use App\Http\Controllers\Api\CategoriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,11 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
 
     Route::middleware('throttle:' . config('api.rate_limits.access'))->group(function() {
         // 遊客可以訪問的接口
+
+        /*分類列表
+            GET|HEAD  categories/{category} ....... categories.show › CategoriesController@show
+        */
+        Route::apiResource('categories', CategoriesController::class)->only('index');
 
         // 某個用戶的詳情
         Route::get('users/{user}', [UsersController::class, 'show'])->name('users.show');
