@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CaptchasController;
 use App\Http\Controllers\Api\AuthorizationsController;
 use App\Http\Controllers\Api\ImagesController;
 use App\Http\Controllers\Api\CategoriesController;
+use App\Http\Controllers\Api\TopicsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,6 @@ use App\Http\Controllers\Api\CategoriesController;
 //     return $request->user();
 // });
 
-// Route::prefix('v1')->name('api.v1.')->group(function() {
 Route::prefix('v1')->name('api.v1.')->group(function() {
     Route::middleware('throttle:' . config('api.rate_limits.sign'))->group(function() {
         // 圖片驗證碼
@@ -50,17 +50,24 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
     });
 
     Route::middleware('throttle:' . config('api.rate_limits.access'))->group(function() {
-        // 遊客可以訪問的接口
-
-        /*分類列表
-            GET|HEAD  categories/{category} ....... categories.show › CategoriesController@show
-        */
-        Route::apiResource('categories', CategoriesController::class)->only('index');
+        // 遊客可以訪問的接口 ---------------------------------------------------------------
 
         // 某個用戶的詳情
         Route::get('users/{user}', [UsersController::class, 'show'])->name('users.show');
 
-        // 登錄後可以訪問的接口
+        /*分類列表
+            GET|HEAD api/v1/categories ... api.v1.categories.index › Api\CategoriesController@index
+        */
+        Route::apiResource('categories', CategoriesController::class)->only('index');
+
+        /*話題列表、詳情
+            GET|HEAD api/v1/topics ... api.v1.topics.index › Api\TopicsController@index
+            GET|HEAD api/v1/topics/{topic} ... api.v1.topics.show › Api\TopicsController@show
+        */
+        Route::apiResource('topics', TopicsController::class)->only(['index', 'show']);
+
+
+        // 登錄後可以訪問的接口 ---------------------------------------------------------------
         Route::middleware('auth:api')->group(function() {
             // 當前登錄用戶信息
             Route::get('user', [UsersController::class, 'me'])->name('user.show');
@@ -70,6 +77,13 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
             
             // 上傳圖片
             Route::post('images', [ImagesController::class, 'store'])->name('images.store');
+
+            /*發布、修改、刪除話題
+                POST api/v1/topics ... api.v1.topics.store › Api\TopicsController@store
+                PUT|PATCH api/v1/topics/{topic} ... api.v1.topics.update › Api\TopicsController@update
+                DELETE api/v1/topics/{topic} ... api.v1.topics.destroy › Api\TopicsController@destroy
+            */
+            Route::apiResource('topics', TopicsController::class)->only(['store', 'update', 'destroy']);
         });
     });
 });
