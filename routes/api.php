@@ -66,6 +66,9 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
         */
         Route::apiResource('topics', TopicsController::class)->only(['index', 'show']);
 
+        // 某個用戶發布的話題
+        Route::get('users/{user}/topics', [TopicsController::class, 'userIndex'])->name('users.topics.index');
+
 
         // 登錄後可以訪問的接口 ---------------------------------------------------------------
         Route::middleware('auth:api')->group(function() {
