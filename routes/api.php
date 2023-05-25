@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\AuthorizationsController;
 use App\Http\Controllers\Api\ImagesController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\TopicsController;
+use App\Http\Controllers\Api\RepliesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +88,12 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
                 DELETE api/v1/topics/{topic} ... api.v1.topics.destroy › Api\TopicsController@destroy
             */
             Route::apiResource('topics', TopicsController::class)->only(['store', 'update', 'destroy']);
+
+            /*發布、刪除回覆
+                POST api/v1/topics/{topic}/replies ... api.v1.topics.replies.store › Api\RepliesController@store
+                DELETE api/v1/topics/{topic}/replies/{reply} ... api.v1.topics.replies.destroy › Api\RepliesController@destroy
+            */
+            Route::apiResource('topics.replies', RepliesController::class)->only(['store', 'destroy']);
         });
     });
 });
