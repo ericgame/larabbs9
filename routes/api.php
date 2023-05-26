@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\ImagesController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\TopicsController;
 use App\Http\Controllers\Api\RepliesController;
+use App\Http\Controllers\Api\NotificationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,6 +103,12 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
                 DELETE api/v1/topics/{topic}/replies/{reply} ... api.v1.topics.replies.destroy › Api\RepliesController@destroy
             */
             Route::apiResource('topics.replies', RepliesController::class)->only(['store', 'destroy']);
+
+            // 通知列表
+            /*
+                GET|HEAD api/v1/notifications ... api.v1.notifications.index › Api\NotificationsController@index
+            */
+            Route::apiResource('notifications', NotificationsController::class)->only(['index']);
         });
     });
 });
