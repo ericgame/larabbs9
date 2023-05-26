@@ -70,6 +70,14 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
         // 某個用戶發布的話題
         Route::get('users/{user}/topics', [TopicsController::class, 'userIndex'])->name('users.topics.index');
 
+        /*話題回覆列表
+            GET|HEAD api/v1/topics/{topic}/replies ... api.v1.topics.replies.index › Api\RepliesController@index
+        */
+        Route::apiResource('topics.replies', RepliesController::class)->only(['index',]);
+
+        // 某個用戶的回覆列表
+        Route::get('users/{user}/replies', [RepliesController::class, 'userIndex'])->name('users.replies.index');
+
 
         // 登錄後可以訪問的接口 ---------------------------------------------------------------
         Route::middleware('auth:api')->group(function() {
