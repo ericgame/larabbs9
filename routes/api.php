@@ -109,6 +109,9 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
                 GET|HEAD api/v1/notifications ... api.v1.notifications.index › Api\NotificationsController@index
             */
             Route::apiResource('notifications', NotificationsController::class)->only(['index']);
+
+            // 通知統計
+            Route::get('notifications/stats', [NotificationsController::class, 'stats'])->name('notifications.stats');
         });
     });
 });
