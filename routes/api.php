@@ -112,6 +112,9 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
 
             // 通知統計
             Route::get('notifications/stats', [NotificationsController::class, 'stats'])->name('notifications.stats');
+
+            // 標記消息通知為已讀
+            Route::patch('user/read/notifications', [NotificationsController::class, 'read'])->name('user.notifications.read');
         });
     });
 });
