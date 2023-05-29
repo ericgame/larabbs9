@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\TopicsController;
 use App\Http\Controllers\Api\RepliesController;
 use App\Http\Controllers\Api\NotificationsController;
+use App\Http\Controllers\Api\PermissionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,6 +116,9 @@ Route::prefix('v1')->name('api.v1.')->group(function() {
 
             // 標記消息通知為已讀
             Route::patch('user/read/notifications', [NotificationsController::class, 'read'])->name('user.notifications.read');
+
+            // 當前登錄用戶權限
+            Route::get('user/permissions', [PermissionsController::class, 'index'])->name('user.permissions.index');
         });
     });
 });
