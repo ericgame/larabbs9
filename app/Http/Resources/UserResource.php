@@ -25,7 +25,7 @@ class UserResource extends JsonResource
         $data['last_actived_at'] = (string) $this->last_actived_at;
         $data['bound_phone'] = $this->resource->phone ? true : false;
         $data['bound_wechat'] = ($this->resource->weixin_unionid || $this->resource->weixin_openid) ? true : false;
-        $date['roles'] = RoleResource::collection($this->whenLoaded('roles'));
+        $data['roles'] = RoleResource::collection($this->whenLoaded('roles'));
 
         return $data;
     }
