@@ -73,5 +73,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class, // 簽名認證，在找回密碼章節裡我們講過
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class, // 訪問節流，類似於 『1 分鐘只能請求 10 次』的需求，一般在 API 中使用
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class, // Laravel 自帶的強制用戶郵箱認證的中間件，為了更加貼近我們的邏輯，已被重寫
+        'change-locale' => \App\Http\Middleware\ChangeLocale::class, // 接口語言設置
     ];
 }

@@ -29,7 +29,11 @@ use App\Http\Controllers\Api\LinksController;
 //     return $request->user();
 // });
 
-Route::prefix('v1')->name('api.v1.')->group(function() {
+Route::prefix('v1')
+    ->middleware('change-locale') // 語系判斷
+    ->name('api.v1.')
+    ->group(function() {
+
     Route::middleware('throttle:' . config('api.rate_limits.sign'))->group(function() {
         // 圖片驗證碼
         Route::post('captchas', [CaptchasController::class, 'store'])->name('captchas.store');
