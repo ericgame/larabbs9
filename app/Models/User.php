@@ -54,6 +54,7 @@ class User extends Authenticatable implements MustVerifyEmail,JWTSubject
         'avatar',
         'weixin_openid',
         'weixin_unionid',
+        'registration_id',
     ];
 
     /**
