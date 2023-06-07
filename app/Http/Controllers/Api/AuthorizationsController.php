@@ -2,31 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
-use Illuminate\Support\Arr;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthenticationException;
-use App\Http\Requests\Api\SocialAuthorizationRequest;
-use App\Http\Requests\Api\AuthorizationRequest;
+use Psr\Http\Message\ServerRequestInterface;
+use Laravel\Passport\Http\Controllers\AccessTokenController;
 
-class AuthorizationsController extends Controller
+class AuthorizationsController extends AccessTokenController
 {
-    public function store(AuthorizationRequest $request)
+    public function store(ServerRequestInterface $request)
     {
-        $username = $request->username;
-
-        filter_var($username, FILTER_VALIDATE_EMAIL) ?
-            $credentials['email'] = $username :
-            $credentials['phone'] = $username ;
-        
-        $credentials['password'] = $request->password;
-
-        if (!$token = \Auth::guard('api')->attempt($credentials)) {
-            // throw new AuthenticationException('用戶名或密碼錯誤');
-            throw new AuthenticationException(trans('auth.failed'));
-        }
-
-        return $this->respondWithToken($token)->setStatusCode(201);
+        return $this->issueToken($request)->setStatusCode(201);
     }
 
     public function socialStore($type, SocialAuthorizationRequest $request)
@@ -91,17 +77,18 @@ class AuthorizationsController extends Controller
         ]);
     }
 
-    public function update()
+    public function update(ServerRequestInterface $request)
     {
-        $token = auth('api')->refresh();
-
-        return $this->respondWithToken($token);
+        return $this->issueToken($request);
     }
 
     public function destroy()
     {
-        auth('api')->logout();
-
-        return response(null, 204);
+        if (auth('api')->check()) {
+            auth('api')->user()->token()->revoke();
+            return response(null, 204);
+        } else {
+            throw new AuthenticationException('The token is invalid.');
+        }
     }
 }
